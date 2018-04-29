@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Template Tool</title>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/lodash.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- choosen -->
+    <link rel="stylesheet" href="css/chosen.css">
+    <script src="js/chosen.jquery.js"></script>
+    <script src="js/custom.jquery.js"></script>
+
+    <!-- jquery ui (interactions only) -->
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="js/jquery-helpers.js"></script>
+    <script src="js/S3Ajax.js"></script>
+    <script src="js/sha1.js"></script>
+
+    <link rel="stylesheet" href="css/template-generator/text-justify.css">
+    <link rel="stylesheet" href="css/template-generator/style.css">
+
+    <script src="js/highlighter.js"></script>
+    <script src="js/capture.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/action.js"></script>
+    <script src="js/generate.js"></script>
+    <script src="js/uploader.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/main.js"></script>
+
+    <style title='quote-styles'>
+        .A {}
+        .B {}
+        .C {}
+        .D {}
+        .E {}
+        .F {}
+        .G {}
+        .H {}
+        .I {}
+        .K {}
+        .L {}
+        .M {}
+        .N {}
+        .O {}
+        .P {}
+        .Q {}
+        .R {}
+        .S {}
+        .T {}
+        .U {}
+        .V {}
+        .W {}
+        .X {}
+        .Y {}
+        .Z {}
+        .global {}
+        .person {}
+        .first {}
+        .last {}
+        .document {}
+        .document-inner {}
+        .document-padding {}
+        .background {}
+        .quote[index="1"] {}
+        .quote[index="2"] {}
+        .quote[index="3"] {}
+        .quote[index="4"] {}
+        .quote[index="5"] {}
+        .quote[index="6"] {}
+        .quote[index="7"] {}
+        .quote[index="8"] {}
+        .quote[index="9"] {}
+        .quote[index="10"] {}
+    </style>
+</head>
+
+<body>
+        <div class="feedback-success">Template saved!</div>
+        <div class="feedback-error">There was an error saving your template</div>
+
+        <div class="page-wrapper">
+            <div class="panel-wrapper">
+                <div class="name-heading"></div>
+
+                <div>
+                    <button class="btn btn-default btn-panel btn-sm">Load</button>
+                    <div class="panel-content hide">
+                        <div class="templates"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn btn-default btn-panel btn-sm">Save</button>
+                    <div class="panel-content hide">
+                        <div class="export-content">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm12" style="text-align: center; margin-top: 3px;">
+                                    <select data-placeholder="Select keywords..." style="width:270px;" multiple class="chosen-select keywords"></select>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 3px;">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <button type="button" class="btn btn-primary btn-sm save">Save</button>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 3px;">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <button type="button" class="btn btn-primary btn-sm save-as" disabled>Save As ...</button>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 3px;">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <button type="button" class="btn btn-primary btn-sm rename" disabled>Rename ...</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn btn-default btn-panel btn-sm">Build</button>
+                    <div class="panel-content hide">
+                      <div class="row">
+                          <div class="col-sm-4"><label>HD Size</label></div>
+                          <div class="col-sm-8">
+                            <input type="textbox" class="input-hd-size" value="10000">
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-4"><label>Transparent Size</label></div>
+                          <div class="col-sm-8">
+                            <input type="textbox" class="input-transparent-size" value="700">
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-4"><label>Limit</label></div>
+                          <div class="col-sm-8">
+                            <input type="textbox" class="input-capture-limit" value="">
+                          </div>
+                      </div>
+                      <div class="row" style="margin-top: 3px;">
+                          <div class="text-center">
+                              <button type="button" class="btn btn-success btn-sm capture">Capture Images</button>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4"><label>Meta</label></div>
+                        <div class="col-sm-8">
+                          <input type="checkbox" class="meta-checkbox" checked />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4"><label>HD</label></div>
+                        <div class="col-sm-8">
+                          <input type="checkbox" class="hd-checkbox" checked />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4"><label>Transparency</label></div>
+                        <div class="col-sm-8">
+                          <input type="checkbox" class="transparency-checkbox" checked />
+                        </div>
+                      </div>
+                      <div class='checklist'>
+                        <div class='checklist-heading'>Checklist</div>
+                        <ul>
+                          <li>open console</li>
+                          <li>turn off volume if overnight build</li>
+                          <li>check rendering output size</li>
+                          <li>turn off screen saver!</li>
+                          <li>check transparent colors!</li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn btn-default btn-panel btn-sm">New</button>
+                    <div class="panel-content hide">
+                        <div class="new-content" style="text-align: center;">
+                            <a href="/">Start New Template</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn btn-default btn-panel btn-sm">Upload Image</button>
+                    <div class="panel-content hide">
+                        <div class="uploader-content" style="text-align: center;">
+                          <div class='dropzone' id='dropzone'>Drop image to upload</div>
+                          <div class='hide dropzone-output'>
+                            <input type="textbox" class="input-uploader-url">
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                  <button class="btn btn-default btn-panel btn-sm">Create SVG</button>
+                  <div class="panel-content hide">
+                    <div class="svg-content" style="text-align: center;">
+                      <div class="row">
+                        <div class="col-sm-4"><label>SVG Name</label></div>
+                        <div class="col-sm-8">
+                          <input type="textbox" class="input-svg-name" value="">
+                        </div>
+                      </div>
+                        <div class="row textarea-svg-wrapper">
+                          <textarea class="textarea-svg" rows="10"></textarea>
+                        </div>
+                        <div class="svg-preview">
+                          <svg></svg>
+                        </div>
+                        <div class="row" style="margin-top: 3px;">
+                          <div class="text-center">
+                            <button type="button" class="btn btn-success btn-sm save-svg">Save</button>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+                <div>
+                  <button class="btn btn-default btn-panel btn-sm">Import Template</button>
+                  <div class="panel-content hide">
+                    <div class="svg-content" style="text-align: center;">
+                        <div class="row textarea-import-wrapper">
+                          <textarea class="textarea-import" rows="10"></textarea>
+                        </div>
+                        <div class="row" style="margin-top: 3px;">
+                          <div class="text-center">
+                            <button type="button" class="btn btn-success btn-sm btn-import">Import</button>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+                <div>
+                  <button class="btn btn-default btn-panel btn-sm">Filters</button>
+                  <div class="panel-content hide">
+                    <div class="filters-content">
+                      <div class="row">
+                        <div class="col-sm-4"><label>Show Filters</label></div>
+                        <div class="col-sm-8">
+                          <input type="checkbox" class="show-filters-checkbox" />
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-sm-4"><label>Min Proportions</label></div>
+                          <div class="col-sm-3">
+                            <div class="input-group">
+                              <input type="textbox" class="content-min-proportions-width-input filter-controls" />
+                              <div class="input-group-addon">H</div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="input-group">
+                              <input type="textbox" class="content-min-proportions-height-input filter-controls" />
+                              <div class="input-group-addon">V</div>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-sm-4"><label>Characters</label></div>
+                          <div class="col-sm-3">
+                            <div class="input-group">
+                              <input type="textbox" class="input-min-characters filter-controls" />
+                              <div class="input-group-addon">min</div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="input-group">
+                              <input type="textbox" class="input-max-characters filter-controls" />
+                              <div class="input-group-addon">max</div>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-sm-4"><label>Words</label></div>
+                          <div class="col-sm-3">
+                            <div class="input-group">
+                              <input type="textbox" class="input-min-words filter-controls" />
+                              <div class="input-group-addon">min</div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="input-group">
+                              <input type="textbox" class="input-max-words filter-controls" />
+                              <div class="input-group-addon">max</div>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-sm-4"><label>Sentences</label></div>
+                          <div class="col-sm-3">
+                            <div class="input-group">
+                              <input type="textbox" class="input-min-sentences filter-controls" />
+                              <div class="input-group-addon">min</div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="input-group">
+                              <input type="textbox" class="input-max-sentences filter-controls" />
+                              <div class="input-group-addon">max</div>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-4"><label>Has a Question</label></div>
+                        <div class="col-sm-8">
+                          <input type="checkbox" class="checkbox-is-question" />
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-4"><label>Has an Exclamation</label></div>
+                        <div class="col-sm-8">
+                          <input type="checkbox" class="checkbox-has-exclamation" />
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-4"><label>Has Author</label></div>
+                        <div class="col-sm-8">
+                          <input type="checkbox" class="checkbox-has-author" />
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-4"><label>Starts With Word(s)</label></div>
+                        <div class="col-sm-8">
+                          <input type="textbox" class="input-first-words" placeholder="word1|word2|word3" />
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <button type="button" class="btn btn-success btn-sm btn-reload-samples">
+                            Reload Sample Quotes
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="styles-wrapper" pattern="global">
+                    <button class="btn btn-default btn-panel btn-sm active">Styles</button>
+                    <div class="panel-content">
+                        <div class="pattern-form">
+                            <div class="row">
+                                <div class="col-sm-4"><label>Pattern</label></div>
+                                <div class="col-sm-8"><input type="textbox" class="input-pattern"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <div class="btn-group btn-class-modifier">
+                                    <button class="btn btn-default btn-sm" action='add'>+</button>
+                                    <button class="btn btn-default btn-sm" action='remove'>-</button>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <div class="btn-group btn-class-selection btn-toggle">
+                                    <button class="btn btn-default btn-sm active" action='global'>gl</button>
+                                    <button class="btn btn-default btn-sm" action='first'>fi</button>
+                                    <button class="btn btn-default btn-sm hide" action='A'>A</button>
+                                    <button class="btn btn-default btn-sm hide" action='B'>B</button>
+                                    <button class="btn btn-default btn-sm hide" action='C'>C</button>
+                                    <button class="btn btn-default btn-sm hide" action='D'>D</button>
+                                    <button class="btn btn-default btn-sm hide" action='E'>E</button>
+                                    <button class="btn btn-default btn-sm hide" action='F'>F</button>
+                                    <button class="btn btn-default btn-sm hide" action='G'>G</button>
+                                    <button class="btn btn-default btn-sm hide" action='H'>H</button>
+                                    <button class="btn btn-default btn-sm" action='last'>la</button>
+                                    <button class="btn btn-default btn-sm" action='person'>pe</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inner-panel css-form">
+                            <div class="row">
+                                <div class="col-sm-4"><label>Font</label></div>
+                                <div class="col-sm-8">
+                                    <select data-placeholder="Select font..." class="chosen-select select-font-family">
+                                      <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4"><label>Color</label></div>
+                                <div class="col-sm-8"><input type="textbox" class="input-color" attribute="color"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4"><label class='font-size-label'>Font Size</label></div>
+                                <div class="col-sm-8">
+                                  <div class="input-group">
+                                    <input type="textbox" class="input-font-size" placeholder="100" attribute="font-size">
+                                    <div class="input-group-addon">%</div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4"><label>Font Weight</label></div>
+                                <div class="col-sm-8">
+                                  <button class="btn btn-default btn-xs btn-font-weight" action="bold">B</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4"><label>Font Style</label></div>
+                                <div class="col-sm-8">
+                                    <div class="btn-group btn-font-style btn-toggle" attribute="font-style">
+                                        <button class="btn btn-default btn-xs active" action='null'>-</button>
+                                        <button class="btn btn-default btn-xs" action='normal'>N</button>
+                                        <button class="btn btn-default btn-xs" action='italic'>I</button>
+                                        <button class="btn btn-default btn-xs" action='oblique'>O</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4"><label>Text Decoration</label></div>
+                                <div class="col-sm-8">
+                                    <div class="btn-group btn-toggle btn-text-decoration" attribute="text-decoration">
+                                        <button class="btn btn-default btn-xs active" action='null'>-</button>
+                                        <button class="btn btn-default btn-xs" action='none'>N</button>
+                                        <button class="btn btn-default btn-xs" action='line-through'>LT</button>
+                                        <button class="btn btn-default btn-xs" action='underline'>U</button>
+                                        <button class="btn btn-default btn-xs" action='overline'>O</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4"><label>Text Transform</label></div>
+                                <div class="col-sm-8">
+                                    <div class="btn-group btn-toggle btn-text-transform" attribute="text-transform">
+                                        <button class="btn btn-default btn-xs active" action='null'>-</button>
+                                        <button class="btn btn-default btn-xs" action='none'>N</button>
+                                        <button class="btn btn-default btn-xs" action='uppercase'>UC</button>
+                                        <button class="btn btn-default btn-xs" action='lowercase'>lc</button>
+                                        <button class="btn btn-default btn-xs" action='capitalize'>Ca</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4"><label>Line Height</label></div>
+                                <div class="col-sm-8"><input type="textbox" class="line-height-input" attribute="line-height"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4"><label>Justify</label></div>
+                                <div class="col-sm-8">
+                                    <div class="btn-group btn-toggle" attribute="justify">
+                                        <button class="btn btn-default btn-xs active" action='null'>-</button>
+                                        <button class="btn btn-default btn-xs" action='none'>N</button>
+                                        <button class="btn btn-default btn-xs" action='size'>S</button>
+                                        <button class="btn btn-default btn-xs" action='word'>W</button>
+                                        <button class="btn btn-default btn-xs" action='letter'>L</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4"><label>Line Split</label></div>
+                                <div class="col-sm-8">
+                                    <div class="btn-group btn-toggle btn-line-split" attribute="line-split">
+                                        <button class="btn btn-default btn-xs active" action='auto'>Au</button>
+                                        <button class="btn btn-default btn-xs" action='sentence'>Se</button>
+                                        <button class="btn btn-default btn-xs" action='word'>Wo</button>
+                                        <button class="btn btn-default btn-xs" action='letter'>Le</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4"><label>Horiz. Alignment</label></div>
+                                <div class="col-sm-8">
+                                    <div class="btn-group btn-toggle" attribute="text-align">
+                                        <button class="btn btn-default btn-xs active" action='left'>L</button>
+                                        <button class="btn btn-default btn-xs" action='center'>C</button>
+                                        <button class="btn btn-default btn-xs" action='right'>R</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4"><label class='text-rotate-label'>Text Rotate</label></div>
+                                <div class="col-sm-8">
+                                  <div class="input-group">
+                                    <input type="textbox" class="input-text-rotate" placeholder="0" attribute="text-rotate">
+                                    <div class="input-group-addon">DEG</div>
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4"><label>Padding</label></div>
+                                <div class="col-sm-2">
+                                  <div class="input-group">
+                                    <input type="textbox" class="padding-input" placeholder="top" attribute="padding-top" />
+                                    <div class="input-group-addon">%</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-2">
+                                  <div class="input-group">
+                                    <input type="textbox" class="padding-input"  placeholder="bottom" attribute="padding-bottom"/>
+                                    <div class="input-group-addon">%</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-2">
+                                  <div class="input-group">
+                                    <input type="textbox" class="padding-input" placeholder="left" attribute="padding-left" />
+                                    <div class="input-group-addon">%</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-2">
+                                  <div class="input-group">
+                                    <input type="textbox" class="padding-input"  placeholder="right" attribute="padding-right"/>
+                                    <div class="input-group-addon">%</div>
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4"><label class='char-colors-label'>Character Colors</label></div>
+                                <div class="col-sm-8">
+                                  <input type="textbox" class="input-char-colors" placeholder="red|rgb(0,0,0)|#444" attribute="char-colors">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4"><label>Background</label></div>
+                                <div class="col-sm-8">
+                                  <input type="textbox" class="background-input" placeholder="background:css">
+                                </div>
+                            </div>
+
+                            <div class="global-style-group">
+
+                              <hr />
+
+                              <div class="row">
+                                  <div class="col-sm-4"><label>Vertical Alignment</label></div>
+                                  <div class="col-sm-8">
+                                      <div class="btn-group btn-toggle btn-vertical-align" attribute="vertical-align">
+                                          <button class="btn btn-default btn-xs active" action='top'>T</button>
+                                          <button class="btn btn-default btn-xs" action='middle'>M</button>
+                                          <button class="btn btn-default btn-xs" action='bottom'>B</button>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-sm-4"><label>Border</label></div>
+                                  <div class="col-sm-8">
+                                    <input type="textbox" class="border-input" placeholder="<px> <style> <color>">
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-sm-4"><label>Proportions</label></div>
+                                  <div class="col-sm-2">
+                                    <div class="input-group">
+                                      <input type="textbox" class="proportions-width-input document-modify" placeholder="W" value="1" />
+                                      <div class="input-group-addon">H</div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-2">
+                                    <div class="input-group">
+                                      <input type="textbox" class="proportions-height-input document-modify"  placeholder="H" value="1" />
+                                      <div class="input-group-addon">V</div>
+                                    </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-sm-4"><label>Remove Punctuation</label></div>
+                                <div class="col-sm-8">
+                                  <input type="checkbox" class="remove-punctuation-checkbox" />
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-sm-4"><label>Remove Author</label></div>
+                                <div class="col-sm-8">
+                                  <input type="checkbox" class="remove-author-checkbox" />
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-sm-4"><label>Wrap in ""</label></div>
+                                <div class="col-sm-8">
+                                  <input type="checkbox" class="wrap-in-quotes-checkbox" />
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-sm-4"><label>Padding</label></div>
+                                  <div class="col-sm-2">
+                                    <div class="input-group">
+                                      <input type="textbox" class="padding-top-input document-modify" placeholder="top" />
+                                      <div class="input-group-addon">%</div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-2">
+                                    <div class="input-group">
+                                      <input type="textbox" class="padding-bottom-input document-modify"  placeholder="bottom"/>
+                                      <div class="input-group-addon">%</div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-2">
+                                    <div class="input-group">
+                                      <input type="textbox" class="padding-left-input document-modify" placeholder="left" />
+                                      <div class="input-group-addon">%</div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-2">
+                                    <div class="input-group">
+                                      <input type="textbox" class="padding-right-input document-modify"  placeholder="right"/>
+                                      <div class="input-group-addon">%</div>
+                                    </div>
+                                  </div>
+                              </div>
+
+                            </div>
+
+                            <div class="person-style-group">
+                              <hr />
+                              <div class="row">
+                                  <div class="col-sm-4"><label>+ Characters</label></div>
+                                  <div class="col-sm-4">
+                                    <div class="input-group">
+                                      <input type="textbox" class="person-pre-characters-input" placeholder="" />
+                                      <div class="input-group-addon">before</div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <div class="input-group">
+                                      <input type="textbox" class="person-post-characters-input" placeholder="" />
+                                      <div class="input-group-addon">after</div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 build-status">
+                                    <span class='building'>Building</span>
+                                    <span class='ready'>Ready</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="output">
+            </div>
+
+            <div class="completed" style="display: none; color: white;">
+              <h1>Success!</h1>
+            </div>
+
+        </div>
+
+        <div class="filters-overlay hide">
+        </div>
+
+        <div class="modal fade" id="modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Save Template</h4>
+              </div>
+              <div class="modal-body">
+                <label></label>
+                <input type="textbox" name="save-template-name" class="input-modal" />
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default reject" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary resolve">Confirm</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <audio  id='done-beep'>
+          <source src='audio/beep.mp3'></source>
+        </audio>
+
+</body>
+</html>

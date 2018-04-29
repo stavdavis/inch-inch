@@ -1,0 +1,5 @@
+{
+  "sub": true, // ignore subscript['properties']
+  "unused": true,
+  "esnext": true
+}

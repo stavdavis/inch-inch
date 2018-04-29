@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Preview</title>
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/lodash.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="js/custom.jquery.js"></script>
+    <script src="js/jquery-helpers.js"></script>
+
+  <!-- jquery ui (interactions only) -->
+    <link rel="stylesheet" href="css/jquery-ui.css">
+
+    <script src="js/util.js"></script>
+    <script src="js/preview.js"></script>
+
+    <style>
+      .content-image-wrapper {
+        float: left;
+        margin: 5px;
+      }
+
+      .heading {
+        background-color: #ebf45e;
+        padding: 5px 0;
+      }
+
+      .previous-wrapper {
+        text-align: right;
+      }
+
+      .title {
+        text-align: center;
+        font-weight: bold;
+      }
+
+      a {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class='heading row'>
+      <div class='col-sm-5 previous-wrapper'>
+        <a class='previous'>previous</a>
+      </div>
+      <div class='col-sm-2 title'></div>
+      <div class='col-sm-5 next-wrapper'>
+        <a class='next'>next</a>
+      </div>
+    </div>
+    <div class='content'>
+    </div>
+  </body>
+</html>

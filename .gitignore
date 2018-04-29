@@ -1,0 +1,7 @@
+/public/png/*
+/node_modules/*
+*.swp
+.DS_Store
+npm-debug.log
+/public/output/html/
+/public/output/img/

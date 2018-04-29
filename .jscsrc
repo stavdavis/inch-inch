@@ -1,0 +1,17 @@
+{
+  "fileExtensions": [".js"],
+  "preset": "google",
+
+  // google preset overrides
+  "maximumLineLength": 120,
+  "requireCurlyBraces": ["if", "else", "for", "whilte"],
+  "disallowSpacesInsideObjectBrackets": null,
+  "disallowMultipleVarDecl": null,
+  "requireCamelCaseOrUpperCaseIdentifiers": {"ignoreProperties": true, "strict": false},
+
+  "excludeFiles": [
+    "node_modules/**"
+  ],
+
+  "requireCurlyBraces": false
+}

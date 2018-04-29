@@ -1,0 +1,20 @@
+.document-inner-base {
+    display: table; width: 100%; height: 100%;
+}
+
+.quote span {
+    white-space: nowrap;
+    display: block;
+}
+
+.quote[justify=size] span:not([justify]), span[justify=size] {
+    text-align: center;
+}
+
+.quote [justify=letter], .quote[justify=letter] span:not([justify]) {
+    display: inline;
+}
+
+.quote [justify=word], .quote[justify=word] span:not([justify]) {
+    display: inline;
+}
