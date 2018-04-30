@@ -1,19 +1,24 @@
 # Getting Started
 
-Start by cloning the repository on bitbucket
+After cloning the repository, enter the newly cloned directory and install
 
-    git clone git@bitbucket.org:thequotary/asset-generator.git
-
-Enter the newly cloned directory and install
-
-    cd asset-generator/
     npm install
 
 Get the latest version of Postgres then install and run
 
 [https://www.postgresql.org/download/](https://www.postgresql.org/download/) 
 
-Restore the database
+Restore the database 
+Note: we use the username "postgres" which is the super user with the password we set when installing postgres
+(1) Create a db with the name pg-backup:
+
+	createdb -U postgres -T template0 pg-backup
+
+(2) Restore the db from the dump file:
+
+	psql -U postgres pg-backup < pg-backup.sql
+
+(old instructions - don't work b/c .sql is a text dump file):
 
     pg_restore pg-backup.sql
 
